@@ -35,6 +35,8 @@ public class TicTacToe
     private Square[][] board;
     private boolean isGameOver;
 
+    private TicTacToeViewer window;
+
     /**
      * Constructor which initialized the board with BLANKs.
      * The winner is also initialized to BLANK.
@@ -50,6 +52,7 @@ public class TicTacToe
             }
         }
 
+        this.window = new TicTacToeViewer(this);
         // Initialize winning stats variables
         this.isGameOver = false;
         this.turn = 0;
@@ -121,6 +124,7 @@ public class TicTacToe
             }
         }
 
+        window.repaint();
         this.printBoard();
         this.isGameOver = true;
 
@@ -136,6 +140,7 @@ public class TicTacToe
                 this.winner = X_MARKER;
                 System.out.println("X Wins!");
             }
+            window.repaint();
         }
     }
 
@@ -149,9 +154,11 @@ public class TicTacToe
     private void takeTurn(int row, int col) {
         if(this.turn % 2 == 0) {
             this.board[row][col].setMarker(X_MARKER);
+            window.repaint();
         }
         else {
             this.board[row][col].setMarker(O_MARKER);
+            window.repaint();
         }
         this.turn++;
     }

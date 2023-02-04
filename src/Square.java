@@ -1,3 +1,7 @@
+import javax.swing.*;
+import javax.swing.text.View;
+import java.awt.*;
+
 /**
  * A class written to support the TicTacToe Game.
  *
@@ -13,8 +17,12 @@
 public class Square {
 
     private String marker;
+
     private int row;
     private int col;
+    public int INITx;
+    public int INITy;
+    public int width;
     private boolean isWinningSquare;
 
     /**
@@ -26,6 +34,10 @@ public class Square {
     public Square(int row, int col) {
         this.row = row;
         this.col = col;
+
+        this.INITx = 300;
+        this.INITy = 200;
+        this.width = 150;
 
         this.marker = TicTacToe.BLANK;
         this.isWinningSquare = false;
@@ -50,6 +62,24 @@ public class Square {
      */
     public boolean isEmpty() {
         return this.marker.equals(TicTacToe.BLANK);
+    }
+
+    public void draw(Graphics g, TicTacToeViewer T) {
+        // if the square is winning turn in green
+        if (isWinningSquare) {
+            g.setColor(Color.GREEN);
+            g.fillRect(INITx + (width * col),INITy + (width * row),width,width);
+        }
+        // draw the square
+        g.setColor(Color.BLACK);
+        g.drawRect(INITx + (width * col),INITy + (width * row),width,width);
+        // draw the marker
+        if(this.marker.equals("X")) {
+            g.drawImage(T.getImages()[0],INITx + (width * col) , INITy + (width * row), 150, 150, T);
+        }
+        else if(this.marker.equals("O")) {
+            g.drawImage(T.getImages()[1],INITx + (width * col),INITy + (width * row), 150, 150, T);
+        }
     }
 
     /**
